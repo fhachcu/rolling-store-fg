@@ -31,7 +31,7 @@ export default class Main extends Component {
                    
                 </Header>
                 <Content className="content">
-                    <p>Basado en tu última visita</p>
+                    <p>Basado en tu última búsqueda</p>
                     <Row>
                         {
                             products.map(prod => (
