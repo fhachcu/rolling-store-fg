@@ -55,7 +55,7 @@ export default class Results extends Component {
                     <Row>
                         {
                             products.map(prod => (
-                            <Col xs={{ span:24 }} lg={{span:8}}>
+                            <Col xs={{ span:24 }} lg={{span:24}}>
                                 <ProductCard product={prod}/>
                             </Col>
                             ))
