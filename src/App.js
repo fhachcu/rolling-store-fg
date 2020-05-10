@@ -52,7 +52,7 @@ export default class App extends Component {
         results: newList,
         term
       }):
-      this.setStaet({results: products})
+      this.setState({results: products})
   }
 
   render() {
@@ -61,8 +61,8 @@ export default class App extends Component {
     const updateList = this.updateList.bind(this);
     return (
       <Router>
-        <switch>
-          <Route path="/" exact>
+        <Switch>
+        <Route path="/" exact>
             <div className="App-container">
               <Main 
                   userName={userName} 
@@ -77,11 +77,14 @@ export default class App extends Component {
             <div className="App-container">
               <Results 
                   userName={userName} 
-                  products={results} 
+                  products={products}
+                  updateTerm={updateTerm}
+                  results={results}
+                  updateList={updateList}
               />
             </div>
           </Route>
-        </switch>
+        </Switch>
       </Router>
     );
   }

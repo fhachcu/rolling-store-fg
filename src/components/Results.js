@@ -25,8 +25,32 @@ export default class Results extends Component {
         }
     }
 
+    handleChange= (e) => {
+        let term = e.target.value;
+        this.props.updateTerm(term)
+    }
+
+    handleSearch = (term) => {
+        let currentProducts = [];
+        let newProducts = [];
+
+        if(term !== ''){
+            currentProducts = this.props.products;
+            newProducts = currentProducts.filter(item => {
+                const lc = item.name.toLowerCase();
+                const filter = term.toLowerCase();
+                return lc.includes(filter)
+            })
+            this.props.updateList(newProducts, term)
+        }else{
+            newProducts = this.props.products;
+            this.props.updateList(newProducts, term);
+        }
+
+    }
+
     render() {
-        const { userName,products } = this.props;
+        const { userName,results } = this.props;
         return (
             <Layout >
                 <Header className="header">
@@ -38,9 +62,9 @@ export default class Results extends Component {
                         <Col xs={{span:19}} lg={{span:16}}>
                            <div className="header-search">
                                <Search
-                                placeholder="¿Que quieres comprar?"
-                                onSearch={value => console.log(value)}
-                                enterButton
+                                 onSearch={ this.handleSearch }
+                                 onChange={ this.handleChange}
+                                 enterButton
                                />
                            </div>
                         </Col>
@@ -54,8 +78,8 @@ export default class Results extends Component {
                     <p>Resultados</p>
                     <Row>
                         {
-                            products.map(prod => (
-                            <Col xs={{ span:24 }} lg={{span:24}}>
+                            results.map(prod => (
+                            <Col key={prod.name} xs={{ span:24 }} lg={{span:24}}>
                                 <ProductCard product={prod}/>
                             </Col>
                             ))

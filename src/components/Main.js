@@ -13,8 +13,8 @@ export default class Main extends Component {
             redirect: false
         }
 
-        this.handleChange =this.handleChange.bind(this);
-        this.updateList =this.props.updateList.bind(this);
+        // this.handleChange =this.handleChange.bind(this);
+        // this.updateList =this.props.updateList.bind(this);
         
     }
 
@@ -28,12 +28,12 @@ export default class Main extends Component {
         }
     }
 
-    handleChange(e){
+    handleChange = (e) => {
         let term = e.target.value;
         this.props.updateTerm(term)
     }
 
-    handleSearch(term){
+    handleSearch = (term) => {
         let currentProducts = [];
         let newProducts = [];
 
@@ -47,6 +47,7 @@ export default class Main extends Component {
             this.props.updateList(newProducts, term)
         }else{
             newProducts = this.props.products;
+            this.props.updateList(newProducts, term);
         }
 
         this.setRedirect();
@@ -67,7 +68,7 @@ export default class Main extends Component {
                                 {this.renderRedirect()}
                                 <Search
                                     placeholder="¿Que quieres comprar?"
-                                    onSearch={ () => this.handleSearch(term) }
+                                    onSearch={ this.handleSearch }
                                     onChange={ this.handleChange}
                                     enterButton
                                 />
@@ -84,7 +85,7 @@ export default class Main extends Component {
                     <Row>
                         {
                             products.map(prod => (
-                                <Col xs={{ span: 24 }} lg={{ span: 8 }}>
+                                <Col key={prod.name} xs={{ span: 24 }} lg={{ span: 8 }}>
                                     <ProductCard product={prod} />
                                 </Col>
                             ))
